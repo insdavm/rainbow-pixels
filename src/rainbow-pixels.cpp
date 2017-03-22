@@ -11,9 +11,10 @@
 #include <Adafruit_NeoPixel.h>
 #include <Arduino.h>
 
-#define   PIN   3                                         /* the pin that our WS2812B LED is on */
+#define   PIN           3                                 /* the pin that our LEDs are on */
+#define   NUM_PIXELS    9                                 /* the number of WS2812B LEDs in our strand */
 
-Adafruit_NeoPixel p = Adafruit_NeoPixel(1, PIN);          /* create a NeoPixel object consisting of one pixel */
+Adafruit_NeoPixel p = Adafruit_NeoPixel(NUM_PIXELS, PIN);          /* create a NeoPixel object consisting of one pixel */
 uint8_t rgb[3];                                           /* declare an array of 8-bit integers to hold our color values */
 
 
@@ -62,7 +63,10 @@ void loop()
       rgb[dC]--;
       rgb[iC]++;
 
-      p.setPixelColor(0, rgb[0], rgb[1], rgb[2]);
+      for ( int a = 0; a < NUM_PIXELS; a++ ) {
+	p.setPixelColor(a, rgb[0], rgb[1], rgb[2]);
+      }
+      
       p.show();
       delay(30);
       
